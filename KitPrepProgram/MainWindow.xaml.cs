@@ -43,7 +43,7 @@ namespace KitPrepProgram
             wb = excel.Workbooks.Open(path);
             ws = wb.Worksheets[1];
             int counter = 2; 
-            while (ws.Cells[counter, 1].Value + "" != textBox.Text)
+            while (ws.Cells[counter, 1].Value + "" != textBox.Text && ws.Cells[counter, 1].Value + "" != "")
             {
                 counter++;
             }
