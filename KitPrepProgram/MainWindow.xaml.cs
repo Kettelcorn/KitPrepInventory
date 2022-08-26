@@ -32,6 +32,12 @@ namespace KitPrepProgram
             readExcel();
         }
 
+        private void page1_Click(object send, RoutedEventArgs e)
+        {
+            Page1 pg = new Page1();
+            this.Content = pg;
+        }
+
             private void readExcel()
         {
             string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";

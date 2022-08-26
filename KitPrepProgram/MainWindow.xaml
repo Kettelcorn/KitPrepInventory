@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Frame x:Name="Main" />
         <Button x:Name="searchButton"
                 Click="button_Search"
                 Content="Search" 
@@ -29,5 +30,13 @@
                    Text="" 
                    VerticalAlignment="Top" 
                    RenderTransformOrigin="0.46,1.036"/>
+        <Button 
+            x:Name="pag1Button" 
+            Content="Page 1" 
+            Click="page1_Click"
+            HorizontalAlignment="Left" 
+            Margin="356,226,0,0" 
+            VerticalAlignment="Top" 
+            Width="75"/>
     </Grid>
 </Window>
