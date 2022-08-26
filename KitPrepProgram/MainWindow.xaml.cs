@@ -22,14 +22,26 @@ namespace KitPrepProgram
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
+        private Microsoft.Office.Interop.Excel.Application excel;
+        private Workbook wb;
+        private Worksheet ws;
+        private Dictionary<int, string[]> kits;
         public MainWindow()
         {
             InitializeComponent();
+            readExcel();
         }
 
+        
         private void button_Search(object send, RoutedEventArgs e)
         {
-            readExcel();
+            int boxNumber = Int32.Parse(textBox.Text);
+            if (kits.ContainsKey(boxNumber)) {
+                textBlock.Text = kits[boxNumber][1] + "";
+            } else
+            {
+                textBlock.Text = "That box does not exist dumb dumb";
+            }
         }
 
         private void page1_Click(object send, RoutedEventArgs e)
@@ -40,27 +52,26 @@ namespace KitPrepProgram
 
             private void readExcel()
         {
-            string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";
+            //string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";
+            string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
 
-            Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            Workbook wb;
-            Worksheet ws;
-
+            excel = new Microsoft.Office.Interop.Excel.Application();
             wb = excel.Workbooks.Open(path);
-            ws = wb.Worksheets[1];
+            ws = wb.Worksheets[2];
+
+            kits = new Dictionary<int, string[]>();
             int counter = 2; 
-            while (ws.Cells[counter, 1].Value + "" != textBox.Text && ws.Cells[counter, 1].Value + "" != "")
+            while (ws.Cells[counter, 1].Value + "" != "")
             {
-                counter++;
+                kits.Add(ws.Cells[counter, 1].Value, new string[]
+                {ws.Cells[counter, 2].Value + "", ws.Cells[counter, 3].Value + "", 
+                ws.Cells[counter, 4].Value + "", ws.Cells[counter, 5].Value + ""});    
             }
-            if (ws.Cells[counter, 1].Value + "" == "")
-                textBlock.Text = "That box does not exist";
-            else
-                textBlock.Text = 
-                  ws.Cells[counter, 3].Value + " "
-                + ws.Cells[counter, 2].Value + " in "
-                + ws.Cells[counter, 5].Value + " ("
-                + ws.Cells[counter, 4].Value + ")";
+        }
+
+        private void button_Search2(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

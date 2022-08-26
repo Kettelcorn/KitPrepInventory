@@ -12,20 +12,20 @@
                 Click="button_Search"
                 Content="Search" 
                 HorizontalAlignment="Left" 
-                Margin="159,42,0,0" 
+                Margin="240,45,0,0" 
                 VerticalAlignment="Top" 
                 Width="100"/>
         <TextBox x:Name="textBox" 
                  HorizontalAlignment="Left" 
                  Height="23" 
-                 Margin="24,42,0,0" 
+                 Margin="88,45,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  VerticalAlignment="Top" 
                  Width="120"/>
         <TextBlock x:Name="textBlock" 
                    HorizontalAlignment="Left" 
-                   Margin="290,42,0,0" 
+                   Margin="400,45,0,0" 
                    TextWrapping="Wrap" 
                    Text="" 
                    VerticalAlignment="Top" 
@@ -38,5 +38,39 @@
             Margin="356,226,0,0" 
             VerticalAlignment="Top" 
             Width="75"/>
+        <TextBlock 
+            HorizontalAlignment="Left" 
+            Margin="10,45,0,0" 
+            TextWrapping="Wrap" 
+            Text="ARLN Kits" 
+            VerticalAlignment="Top"/>
+        <Button x:Name="searchbutton2"
+                Click="button_Search2"
+                Content="Search" 
+                HorizontalAlignment="Left" 
+                Margin="240,100,0,0" 
+                VerticalAlignment="Top" 
+                Width="100"/>
+        <TextBox x:Name="textBox2" 
+                 HorizontalAlignment="Left" 
+                 Height="23" 
+                 Margin="88,100,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="120"/>
+        <TextBlock 
+            HorizontalAlignment="Left" 
+            Margin="10,100,0,0" 
+            TextWrapping="Wrap" 
+            Text="Inventory" 
+            VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock2" 
+                   HorizontalAlignment="Left" 
+                   Margin="400,100,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="" 
+                   VerticalAlignment="Top" 
+                   RenderTransformOrigin="0.46,1.036"/>
     </Grid>
 </Window>
