@@ -1,0 +1,33 @@
+﻿<Window x:Class="KitPrepProgram.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KitPrepProgram"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="searchButton"
+                Click="button_Search"
+                Content="Search" 
+                HorizontalAlignment="Left" 
+                Margin="159,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="100"/>
+        <TextBox x:Name="textBox" 
+                 HorizontalAlignment="Left" 
+                 Height="23" 
+                 Margin="24,42,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="120"/>
+        <TextBlock x:Name="textBlock" 
+                   HorizontalAlignment="Left" 
+                   Margin="290,42,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="" 
+                   VerticalAlignment="Top" 
+                   RenderTransformOrigin="0.46,1.036"/>
+    </Grid>
+</Window>
