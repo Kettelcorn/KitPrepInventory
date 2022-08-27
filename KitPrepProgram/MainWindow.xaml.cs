@@ -53,18 +53,18 @@ namespace KitPrepProgram
 
             private void readExcel()
         {
-            //string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";
-            string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
+            string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";
+            //string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
 
             excel = new Microsoft.Office.Interop.Excel.Application();
             wb = excel.Workbooks.Open(path);
-            ws = wb.Worksheets[2];
+            ws = wb.Worksheets[1];
 
             kits = new Dictionary<int, int>();
             int counter = 2; 
             while (ws.Cells[counter, 1].Value + "" != "")
             {
-                kits.Add(Int32.Parse(ws.Cells[counter, 1].Value), counter);
+                kits.Add(ws.Cells[counter, 1].Value, counter);
                 counter++;
             }
         }
