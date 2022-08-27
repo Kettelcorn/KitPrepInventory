@@ -25,7 +25,7 @@ namespace KitPrepProgram
         private Microsoft.Office.Interop.Excel.Application excel;
         private Workbook wb;
         private Worksheet ws;
-        private Dictionary<int, string[]> kits;
+        private Dictionary<int, int> kits;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,7 +37,8 @@ namespace KitPrepProgram
         {
             int boxNumber = Int32.Parse(textBox.Text);
             if (kits.ContainsKey(boxNumber)) {
-                textBlock.Text = kits[boxNumber][1] + "";
+                textBlock.Text = ws.Cells[kits[boxNumber], 3] + ws.Cells[kits[boxNumber], 2] + " in "
+                    + ws.Cells[kits[boxNumber], 5] + " (" + ws.Cells[kits[boxNumber], 4] + ")";
             } else
             {
                 textBlock.Text = "That box does not exist dumb dumb";
@@ -59,13 +60,12 @@ namespace KitPrepProgram
             wb = excel.Workbooks.Open(path);
             ws = wb.Worksheets[2];
 
-            kits = new Dictionary<int, string[]>();
+            kits = new Dictionary<int, int>();
             int counter = 2; 
             while (ws.Cells[counter, 1].Value + "" != "")
             {
-                kits.Add(ws.Cells[counter, 1].Value, new string[]
-                {ws.Cells[counter, 2].Value + "", ws.Cells[counter, 3].Value + "", 
-                ws.Cells[counter, 4].Value + "", ws.Cells[counter, 5].Value + ""});    
+                kits.Add(Int32.Parse(ws.Cells[counter, 1].Value), counter);
+                counter++;
             }
         }
 
