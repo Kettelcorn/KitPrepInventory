@@ -25,7 +25,7 @@ namespace KitPrepProgram
         private Microsoft.Office.Interop.Excel.Application excel;
         private Workbook wb;
         private Worksheet ws;
-        private Dictionary<int, int> kits;
+        private Dictionary<string, string> kits;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,10 +35,11 @@ namespace KitPrepProgram
         
         private void button_Search(object send, RoutedEventArgs e)
         {
-            int boxNumber = Int32.Parse(textBox.Text);
+            string boxNumber = textBox.Text + "";
             if (kits.ContainsKey(boxNumber)) {
-                textBlock.Text = ws.Cells[kits[boxNumber], 3] + ws.Cells[kits[boxNumber], 2] + " in "
-                    + ws.Cells[kits[boxNumber], 5] + " (" + ws.Cells[kits[boxNumber], 4] + ")";
+                int number = Int32.Parse(kits[boxNumber]);
+                textBlock.Text = ws.Cells[number, 3].Value + " " + ws.Cells[number, 2].Value + " in "
+                    + ws.Cells[number, 5].Value + " (" + ws.Cells[number, 4].Value + ")";
             } else
             {
                 textBlock.Text = "That box does not exist dumb dumb";
@@ -53,18 +54,18 @@ namespace KitPrepProgram
 
             private void readExcel()
         {
-            string path = @"C:\Users\Jackson Kettel\Documents\Coding\ARLN Kit Prep Inventory.xlsx";
+            string path = @"C:\Users\Jackson Kettel\Documents\Coding\KitPrepInventory\Inventory Tracker.xlsx";
             //string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
 
             excel = new Microsoft.Office.Interop.Excel.Application();
             wb = excel.Workbooks.Open(path);
-            ws = wb.Worksheets[1];
+            ws = wb.Worksheets[2];
 
-            kits = new Dictionary<int, int>();
+            kits = new Dictionary<string, string>();
             int counter = 2; 
             while (ws.Cells[counter, 1].Value + "" != "")
             {
-                kits.Add(ws.Cells[counter, 1].Value, counter);
+                kits.Add(ws.Cells[counter, 1].Value + "", counter + "");
                 counter++;
             }
         }
