@@ -24,8 +24,8 @@ namespace KitPrepProgram
     {
         private Microsoft.Office.Interop.Excel.Application excel;
         private Workbook wb;
-        private Worksheet ws;
-        private Dictionary<string, string> kits;
+        private Worksheet ws1;
+        private Worksheet ws2;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,15 +35,34 @@ namespace KitPrepProgram
         
         private void button_Search(object send, RoutedEventArgs e)
         {
-            string boxNumber = textBox.Text + "";
-            if (kits.ContainsKey(boxNumber)) {
-                int number = Int32.Parse(kits[boxNumber]);
-                textBlock.Text = ws.Cells[number, 3].Value + " " + ws.Cells[number, 2].Value + " in "
-                    + ws.Cells[number, 5].Value + " (" + ws.Cells[number, 4].Value + ")";
-            } else
+            int counter = 2;
+            string answer = "";
+            while (ws2.Cells[counter, 1].Value + "" != "" && answer == "")
             {
-                textBlock.Text = "That box does not exist dumb dumb";
+                if (ws2.Cells[counter, 1].Value + "" == textBox.Text)
+                    answer = ws2.Cells[counter, 3].Value + " " + ws2.Cells[counter, 2].Value + " in " +
+                    ws2.Cells[counter, 5].Value + " (" + ws2.Cells[counter, 4].Value + ")";
+                counter++;
             }
+            if (answer == "") textBlock.Text = "That box does not exist dumb dumb";
+            else textBlock.Text = answer;
+        }
+
+        private void button_Search2(object sender, RoutedEventArgs e)
+        {
+            int counter = 4;
+            string answer = "";
+            textBlock2.Text = "";
+            while (ws1.Cells[counter, 1].Value + "" != "")
+            {
+                if (((string)ws1.Cells[counter, 2].Value + "").ToLower().Contains(textBox2.Text.ToLower()))
+                {
+                    answer = ws1.Cells[counter, 1].Value;
+                    textBlock2.Text += answer + " (" + ws1.Cells[counter, 2].Value + ")\n";
+                }
+                counter++;  
+            }
+            if (answer == "") textBlock2.Text = "That item does not exist";
         }
 
         private void page1_Click(object send, RoutedEventArgs e)
@@ -59,20 +78,8 @@ namespace KitPrepProgram
 
             excel = new Microsoft.Office.Interop.Excel.Application();
             wb = excel.Workbooks.Open(path);
-            ws = wb.Worksheets[2];
-
-            kits = new Dictionary<string, string>();
-            int counter = 2; 
-            while (ws.Cells[counter, 1].Value + "" != "")
-            {
-                kits.Add(ws.Cells[counter, 1].Value + "", counter + "");
-                counter++;
-            }
-        }
-
-        private void button_Search2(object sender, RoutedEventArgs e)
-        {
-            
+            ws1 = wb.Worksheets[1];
+            ws2 = wb.Worksheets[2];  
         }
     }
 }
