@@ -24,62 +24,71 @@ namespace KitPrepProgram
     {
         private Microsoft.Office.Interop.Excel.Application excel;
         private Workbook wb;
-        private Worksheet ws1;
-        private Worksheet ws2;
+        private Worksheet ws1, ws2;
+       
+        // sets up window and excel spread sheet to read
         public MainWindow()
         {
             InitializeComponent();
             readExcel();
         }
 
-        
-        private void button_Search(object send, RoutedEventArgs e)
-        {
-            int counter = 2;
-            string answer = "";
-            while (ws2.Cells[counter, 1].Value + "" != "" && answer == "")
-            {
-                if (ws2.Cells[counter, 1].Value + "" == textBox.Text)
-                    answer = ws2.Cells[counter, 3].Value + " " + ws2.Cells[counter, 2].Value + " in " +
-                    ws2.Cells[counter, 5].Value + " (" + ws2.Cells[counter, 4].Value + ")";
-                counter++;
-            }
-            if (answer == "") textBlock.Text = "That box does not exist dumb dumb";
-            else textBlock.Text = answer;
-        }
-
-        private void button_Search2(object sender, RoutedEventArgs e)
-        {
-            int counter = 4;
-            string answer = "";
-            textBlock2.Text = "";
-            while (ws1.Cells[counter, 1].Value + "" != "")
-            {
-                if (((string)ws1.Cells[counter, 2].Value + "").ToLower().Contains(textBox2.Text.ToLower()))
-                {
-                    answer = ws1.Cells[counter, 1].Value;
-                    textBlock2.Text += answer + " (" + ws1.Cells[counter, 2].Value + ")\n";
-                }
-                counter++;  
-            }
-            if (answer == "") textBlock2.Text = "That item does not exist";
-        }
-
-        private void page1_Click(object send, RoutedEventArgs e)
-        {
-            Page1 pg = new Page1();
-            this.Content = pg;
-        }
-
-            private void readExcel()
+        // sets up program to read given spread sheet
+        private void readExcel()
         {
             string path = @"C:\Users\Jackson Kettel\Documents\Coding\KitPrepInventory\Inventory Tracker.xlsx";
             //string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
 
             excel = new Microsoft.Office.Interop.Excel.Application();
             wb = excel.Workbooks.Open(path);
-            ws1 = wb.Worksheets[1];
-            ws2 = wb.Worksheets[2];  
+            ws1 = wb.Worksheets[1]; 
+            ws2 = wb.Worksheets[2];
+
+        }
+
+        // searches for if box number given by user exists
+        // if it does exist, show user what is in the box and where it is
+        private void button_Search(object send, RoutedEventArgs e)
+        {
+            int counter = 2;
+            string answer = "";
+
+            while (ws2.Cells[counter, 1].Value + "" != "" && answer == "")
+            {
+                if (ws2.Cells[counter, 1].Value + "" == textBox.Text)
+                    answer = ws2.Cells[counter, 3].Value + " " + ws2.Cells[counter, 2].Value + " in " +
+                    ws2.Cells[counter, 5].Value + "\nExpiration Date: " + ws2.Cells[counter, 4].Value;
+                counter++;
+            }
+
+            if (answer == "") textBlock.Text = "That box does not exist dumb dumb";
+            else textBlock.Text = answer;
+        }
+
+        // searches if item given by user exist in spread sheet
+        // if item does exist, show user what cabinet
+        private void button_Search2(object sender, RoutedEventArgs e)
+        {
+            int counter = 4;
+            textBlock2.Text = "";
+
+            while (ws1.Cells[counter, 1].Value + "" != "")
+            {
+                if (((string)ws1.Cells[counter, 2].Value + "").ToLower().Contains(textBox2.Text.ToLower()))
+                {
+                    textBlock2.Text += ws1.Cells[counter,1].Value + ": " + ws1.Cells[counter,2].Value + "\n";
+                }
+                counter++;  
+            }
+
+            if (textBlock2.Text == "") textBlock2.Text = "That item does not exist";
+        }
+
+        // takes user to page 2
+        private void page1_Click(object send, RoutedEventArgs e)
+        {
+            Page1 pg = new Page1();
+            this.Content = pg;
         }
     }
 }
