@@ -40,7 +40,7 @@ namespace KitPrepProgram
             //string path = @"C:\Users\Kette\Documents\GitHub\KitPrepInventory\Inventory Tracker.xlsx";
 
             excel = new Microsoft.Office.Interop.Excel.Application();
-            wb = excel.Workbooks.Open(path);
+            wb = excel.Workbooks.Open(path, ReadOnly: false, Editable: true);
             ws1 = wb.Worksheets[1]; 
             ws2 = wb.Worksheets[2];
 
@@ -63,6 +63,26 @@ namespace KitPrepProgram
 
             if (answer == "") textBlock.Text = "That box does not exist dumb dumb";
             else textBlock.Text = answer;
+        }
+
+        //updates values inside the excel spreadsheet based on user input
+        private void button_Update(object send, RoutedEventArgs e)
+        {
+            textBlock3.Text = "";
+            int counter = 2;
+
+            while (ws2.Cells[counter, 1].Value + "" != "" && counter != 1)
+            {
+                if (ws2.Cells[counter, 1].Value + "" == boxNumber.Text + "")
+                {
+                    if (kitNumber.Text != "Amount" || kitNumber.Text != "") ws2.Cells[counter, 3].Value = kitNumber.Text;
+                    textBlock3.Text = "Values updated!";
+                    counter = 0;
+                }
+                counter++;
+            }
+            if (textBlock3.Text == "") textBlock3.Text = "Please use a valid box number";
+            
         }
 
         // searches if item given by user exist in spread sheet
